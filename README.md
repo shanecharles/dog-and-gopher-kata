@@ -1,3 +1,3 @@
 # Dog and Gopher
 
-Run the dog_gopher.fsx in F# interactive.
+Run the `dog_gopher.fsx` file in F# interactive.
