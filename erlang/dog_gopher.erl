@@ -1,7 +1,11 @@
 -module(dog_gopher).
 -compile(export_all).
 
-run_set_simulation(Gopher, Dog, Holes) ->
+run_sets() ->
+  print_output(run_set_simulation({{1.0, 1.0},{2.0, 2.0},[{1.5, 1.5}]})),
+  print_output(run_set_simulation({{2.0, 2.0},{1.0, 1.0},[{1.5, 1.5}, {2.5, 2.5}]})).
+
+run_set_simulation({Gopher, Dog, Holes}) ->
   lists:filter(fun (Hole) -> can_gopher_escape(Gopher, Dog, Hole) end, Holes).
 
 distance({X1, Y1}, {X2, Y2}) ->
