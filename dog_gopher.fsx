@@ -21,7 +21,7 @@ let findSafeHole data =
   let dDist = distance data.dog
   data.holes |> Seq.tryFind (fun h -> 2. * (gDist h) <= (dDist h))
 
-let printResult = function Some p -> printfn "The gopher can escape through the hole at %A" p
+let printResult = function Some p -> printfn "The gopher can escape through the hole at %A." p
                          | _      -> printfn "The gopher cannot escape."
 
 let simulate : string -> unit = parseInput >> Seq.map findSafeHole >> Seq.iter printResult
