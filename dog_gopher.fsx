@@ -19,7 +19,7 @@ let distance (x1, y1) (x2, y2) =
 let findSafeHole data =
   let gDist = distance data.gopher
   let dDist = distance data.dog
-  data.holes |> Seq.tryFind (fun h -> 2. * (gDist h) < (dDist h))
+  data.holes |> Seq.tryFind (fun h -> 2. * (gDist h) <= (dDist h))
 
 let printResult = function Some p -> printfn "The gopher can escape through the hole at %A" p
                          | _      -> printfn "The gopher cannot escape."
