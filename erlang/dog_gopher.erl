@@ -1,9 +1,25 @@
 -module(dog_gopher).
--compile(export_all).
+-export([run_simulation/1]).
 
-run_sets() ->
-  print_output(run_set_simulation({{1.0, 1.0},{2.0, 2.0},[{1.5, 1.5}]})),
-  print_output(run_set_simulation({{2.0, 2.0},{1.0, 1.0},[{1.5, 1.5}, {2.5, 2.5}]})).
+run_simulation(File) ->
+  Data = parse_input_file(File),
+  lists:foreach(fun print_output/1, lists:map(fun run_set_simulation/1, Data)).
+
+parse_input_file(File) ->
+  {ok, Handle} = file:open(File, read),
+  Data = parse_file(Handle, file:read_line(Handle), []),
+  file:close(Handle),
+  Data.
+
+parse_file(Handle, {ok, Line}, Sets) ->
+  parse_file(Handle, file:read_line(Handle), update_sets(lists:map(fun string:to_float/1, string:tokens(Line, " ")),Sets)) ;
+parse_file(_, eof, Sets) ->
+  lists:reverse(lists:map(fun ({G, D, Hs}) -> {G, D, lists:reverse(Hs)} end, Sets)).
+
+update_sets([_, {Gx,_}, {Gy,_}, {Dx,_}, {Dy,_}], Sets) ->
+  [{{Gx, Gy}, {Dx, Dy}, []} | Sets] ;
+update_sets([{X, _}, {Y, _}], [{G,D,Hs} | T]) ->
+  [{G, D, [{X,Y} | Hs]} | T].
 
 run_set_simulation({Gopher, Dog, Holes}) ->
   lists:filter(fun (Hole) -> can_gopher_escape(Gopher, Dog, Hole) end, Holes).
