@@ -1,14 +1,24 @@
 # Dog and Gopher (partial erlang)
 
-This implementation is not yet fully functional.
-What's missing?
-* parsing the input file
-* executing on multiple data sets
-
-The test data sets are currently hard coded. I will add the ability to parse an input file.
+This runs through the input file and determines whether the gopher escapes the dog.
 
 ## Running
 
-Load the `dog_gopher` module in the erlang runtime and execute:
+Once the module is loaded you can run the simulation by calling:
 
-    dog_gopher:run_sets().
+    dog_gopher:run_simulation("some input file").
+
+
+### OSx / Linux
+
+    run.sh
+
+
+### Windows
+
+Open `werl`, change to the directory containing `dog_gopher.erl`.
+
+    cd("some directory").
+    c(dog_gopher).
+    dog_gopher:run_simulation("../input.txt").
+
